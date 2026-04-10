@@ -103,7 +103,7 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.06);
   }
 
-  /* 牌背：使用妳專屬的柔美星空圖片 */
+  /* 牌背：使用你專屬的柔美星空圖片 */
   .card-back {
     background-image: url('Gemini_Generated_Image_i571w8i571w8i571.jpg'); 
     background-size: cover;
@@ -227,7 +227,7 @@
 <body>
 
   <h1>✧ 靈魂微光 塔羅指引 ✧</h1>
-  <div class="subtitle">請深呼吸，讓這道溫暖的光感應妳此刻的能量</div>
+  <div class="subtitle">請深呼吸，讓這道溫暖的光感應你此刻的能量</div>
   
   <button class="draw-btn" id="drawBtn" onclick="drawCards()">✦ 感受能量並抽牌 ✦</button>
 
@@ -251,7 +251,7 @@
 <script>
 // ==========================================
 // 📚 小光特製：專屬 78 張全牌庫解析自動建構引擎
-// （已經將妳貼上的心血全部轉化為系統參數）
+// （已經將你貼上的心血全部轉化為系統參數）
 // ==========================================
 const rawDatabase = `
 愚者|開始、冒險、純真|魯莽、遲疑|適合新領域，有升遷機會但需勇氣。|適合新領域，有升遷機會但需勇氣。|學習興趣廣泛，但缺乏持久力。|學習興趣廣泛，但缺乏持久力。|意外之財或隨興花費，理財隨緣。|意外之財或隨興花費，理財隨緣。|注意四肢外傷或精神放鬆。|注意四肢外傷或精神放鬆。|展現自信，分享你的光芒與成功。|展現自信，分享你的光芒與成功。
@@ -362,10 +362,10 @@ const aspects = [
 function getInterpretation(cardName, status, keyword, aspect) {
   const cardData = customTarotData[cardName];
   if (cardData && cardData[status] && cardData[status][aspect]) {
-    return cardData[status][aspect]; // 如果妳的資料庫有這筆資料，優先使用妳的心血
+    return cardData[status][aspect]; // 如果你的資料庫有這筆資料，優先使用你的心血
   }
 
-  // 針對缺少「感情」的欄位，系統自動結合妳設定的「關鍵字」生成溫暖的指引
+  // 針對缺少「感情」的欄位，系統自動結合你設定的「關鍵字」生成溫暖的指引
   const templates = {
     "感情": `在關係的連結中，這股能量帶來了『${keyword}』的特質。${status==='正位' ? '順應這份流動，敞開心扉去感受當下的溫暖。' : '請留意內在的防衛或不安，先照顧好自己的心，不急於向外索求。'}`
   };
@@ -389,9 +389,9 @@ async function drawCards() {
   await new Promise(r => setTimeout(r, 800));
   btn.innerText = "正在讀取靈魂的能量...";
   await new Promise(r => setTimeout(r, 800));
-  btn.innerText = "✦已連結 ✦";
+  btn.innerText = "✦ 已連結 ✦";
 
-  // 直接從妳專屬的 78 張牌庫中洗牌
+  // 直接從你專屬的 78 張牌庫中洗牌
   let deckKeys = Object.keys(customTarotData);
   let shuffled = [...deckKeys].sort(() => 0.5 - Math.random());
   let drawnCards = shuffled.slice(0, 3);
