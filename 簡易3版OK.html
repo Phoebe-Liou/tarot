@@ -273,7 +273,7 @@
   <div class="result-area" id="resultArea"></div>
 
   <div class="footer-note" id="footerNote" style="display: none;">
-    <b>✧ 貼心微光提醒 ✧</b><br>
+    <b>✧ 微光提醒 ✧</b><br>
     塔羅牌是一面反映內心的溫暖鏡子，能為我們提供當下能量的指引與療癒，但請切勿過度迷信。<br>
     未來的路徑始終掌握在妳自己的手中。若遇重大身心靈困擾或醫療問題，請務必諮詢專業醫師、諮商師或專業塔羅師的協助喔！
   </div>
@@ -429,6 +429,23 @@ function getInterpretation(cardName, status, keyword, aspect) {
   return "這股能量正在醞釀中，請靜心感受。";
 }
 
+// ==========================================
+// 🌟 小光特製：高階能量洗牌演算法 (Fisher-Yates Shuffle)
+// 確保 78 張牌徹底洗勻，絕不鬼打牆，精準感應當下能量
+// ==========================================
+function shuffleDeck(array) {
+  let currentIndex = array.length, randomIndex;
+  // 當還剩下元素未洗牌時...
+  while (currentIndex !== 0) {
+    // 隨機選取一個剩下的元素
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    // 將它與當前元素交換
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  }
+  return array;
+}
+
 async function drawCards() {
   const btn = document.getElementById('drawBtn');
   btn.disabled = true;
@@ -449,14 +466,15 @@ async function drawCards() {
   await new Promise(r => setTimeout(r, 800));
   btn.innerText = "✦ 已連結 ✦";
 
-  // 直接從妳專屬的 78 張牌庫中洗牌
+  // 🔮 啟用高階洗牌法，徹底打散 78 張牌庫
   let deckKeys = Object.keys(customTarotData);
-  let shuffled = [...deckKeys].sort(() => 0.5 - Math.random());
+  let shuffled = shuffleDeck([...deckKeys]); 
   let drawnCards = shuffled.slice(0, 3);
   
   let results = [];
 
   drawnCards.forEach((cardName, index) => {
+    // 決定正逆位 (50% 機率)
     const isReversed = Math.random() > 0.5;
     const status = isReversed ? "逆位" : "正位";
     const keyword = customTarotData[cardName][status].關鍵字;
@@ -484,7 +502,6 @@ async function drawCards() {
     document.getElementById('footerNote').style.display = 'block';
   }, 2200);
 }
-
 function renderAspectResults(results) {
   const area = document.getElementById('resultArea');
   let html = `<div class="aspect-grid">`;
