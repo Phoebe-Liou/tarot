@@ -233,15 +233,15 @@
 
   <div class="spread">
     <div class="card-slot">
-      <div class="slot-title">核心現狀</div>
+      <div class="slot-title">核心現況/主要能量</div>
       <div class="card-inner" id="card0"><div class="card-back"></div><div class="card-front" id="front0"></div></div>
     </div>
     <div class="card-slot">
-      <div class="slot-title">潛意識洞見</div>
+      <div class="slot-title">潛意識/內在盲點</div>
       <div class="card-inner" id="card1"><div class="card-back"></div><div class="card-front" id="front1"></div></div>
     </div>
     <div class="card-slot">
-      <div class="slot-title">未來導引</div>
+      <div class="slot-title">未來導引/行動建議</div>
       <div class="card-inner" id="card2"><div class="card-back"></div><div class="card-front" id="front2"></div></div>
     </div>
   </div>
@@ -251,7 +251,6 @@
 <script>
 // ==========================================
 // 📚 小光特製：專屬 78 張全牌庫解析自動建構引擎
-// （已經將你貼上的心血全部轉化為系統參數）
 // ==========================================
 const rawDatabase = `
 愚者|開始、冒險、純真|魯莽、遲疑|適合新領域，有升遷機會但需勇氣。|適合新領域，有升遷機會但需勇氣。|學習興趣廣泛，但缺乏持久力。|學習興趣廣泛，但缺乏持久力。|意外之財或隨興花費，理財隨緣。|意外之財或隨興花費，理財隨緣。|注意四肢外傷或精神放鬆。|注意四肢外傷或精神放鬆。|展現自信，分享你的光芒與成功。|展現自信，分享你的光芒與成功。
@@ -362,7 +361,7 @@ const aspects = [
 function getInterpretation(cardName, status, keyword, aspect) {
   const cardData = customTarotData[cardName];
   if (cardData && cardData[status] && cardData[status][aspect]) {
-    return cardData[status][aspect]; // 如果你的資料庫有這筆資料，優先使用你的心血
+    return cardData[status][aspect]; // 如果你有資料庫有這筆資料，優先使用你的心血
   }
 
   // 針對缺少「感情」的欄位，系統自動結合你設定的「關鍵字」生成溫暖的指引
@@ -387,7 +386,7 @@ async function drawCards() {
 
   btn.innerText = "正在連結宇宙頻率...";
   await new Promise(r => setTimeout(r, 800));
-  btn.innerText = "正在讀取靈魂的能量...";
+  btn.innerText = "正在讀取當下的靈魂能量...";
   await new Promise(r => setTimeout(r, 800));
   btn.innerText = "✦ 已連結 ✦";
 
@@ -429,16 +428,23 @@ function renderAspectResults(results) {
   const area = document.getElementById('resultArea');
   let html = `<div class="aspect-grid">`;
 
+  // ✨ 這裡加入了妳要的三個小標題 ✨
+  const subtitles = ["核心現況", "潛意識/內在盲點", "未來導引/行動建議"];
+
   aspects.forEach(aspect => {
     html += `
       <div class="aspect-item">
         <div class="aspect-label">${aspect.icon} ${aspect.title}</div>
     `;
     
-    results.forEach(card => {
+    // ✨ 在每一段解說的上方，自動印出對應的小標題 ✨
+    results.forEach((card, index) => {
       const content = getInterpretation(card.name, card.status, card.keyword, aspect.key); 
       html += `
         <div class="card-interpretation">
+          <div style="font-size: 0.95rem; color: #a07850; margin-bottom: 4px; font-weight: bold; letter-spacing: 1px;">
+            ✦ ${subtitles[index]} ✦
+          </div>
           <span class="card-title">${card.name}（${card.status}）：</span>${content}
         </div>
       `;
